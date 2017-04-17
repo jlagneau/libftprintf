@@ -14,11 +14,13 @@
 # Variables
 #
 
-# Name of the executable
-NAME       = ft_printf
+# Name of the library
+NAME       = libftprintf.a
+DEB_NAME   = libftprintf_debug.a
 
 # Exec
 CC        ?= gcc
+AR         = ar
 RM         = rm -rf
 
 # Directories
@@ -34,8 +36,8 @@ DEPS_PATH  = .dep/
 # Flags
 CFLAGS    += -Wall -Wextra -Werror
 CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH)
-LDFLAGS   += -L$(LIB_PATH)
 DEPSFLAGS  = -MMD -MF"$(DEPS_PATH)$(notdir $(@:.o=.d))"
+ARFLAGS    = rcsT
 
 # Files
 SRCS      := $(shell find src -type f)
@@ -59,15 +61,17 @@ $(NAME): LDFLAGS += -lft
 $(NAME): $(OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH)
-	$(CC) $^ $(LDFLAGS) -o $@
+	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft.a $^
+	@echo -e "create $(NAME)\naddlib $(NAME)\nsave\nend" | $(AR) -M
 
 # Link the debug executable.
-debug: CFLAGS += -g3
-debug: LDFLAGS += -lft_debug
-debug: $(DEB_OBJS)
+$(DEB_NAME): CFLAGS += -g3
+$(DEB_NAME): LDFLAGS += -lft_debug
+$(DEB_NAME): $(DEB_OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH) debug
-	$(CC) $^ $(LDFLAGS) -o $@
+	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft_debug.a $^
+	@echo -e "create $(DEB_NAME)\naddlib $(DEB_NAME)\nsave\nend" | $(AR) -M
 
 # Compile the objects.
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
@@ -97,7 +101,7 @@ fclean:
 re: fclean all
 
 # Clean and rebuild the debug executable.
-redebug: fclean debug
+redebug: fclean $(DEB_NAME)
 
 # Include dependencies for objects.
 -include $(DEPS)
