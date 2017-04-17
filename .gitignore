@@ -1,0 +1,4 @@
+.obj/
+.dep/
+ft_printf
+debug
