@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/17 18:24:10 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/17 18:24:10 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/17 18:23:47 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/17 18:23:47 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdarg.h>
+#include "ft_printf.h"
 
-int		ft_printf(char const *format, ...);
-int		ft_dprintf(int fd, const char *format, ...);
-int		ft_sprintf(char *str, const char *format, ...);
+int		ft_printf(const char *format, ...)
+{
+	int			ret;
+	va_list		ap;
 
-int		ft_vprintf(char const *format, va_list ap);
-int		ft_vdprintf(int fd, const char *format, va_list ap);
-int		ft_vsprintf(char *str, const char *format, va_list ap);
-
-#endif
+	ret = ft_vprintf(format, ap);
+	return (ret);
+}
