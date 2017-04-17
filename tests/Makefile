@@ -14,18 +14,16 @@
 # Variables
 #
 
-# Name of the library
-NAME       = libftprintf.a
-DEB_NAME   = libftprintf_debug.a
+# Name of the executable
+NAME       = test
 
 # Exec
 CC        ?= gcc
-AR         = ar
 RM         = rm -rf
 
 # Directories
-LIB_PATH   = libft/
-LIBH_PATH  = libft/include/
+LIB_PATH   = ../
+LIBH_PATH  = ../include/
 
 SRCS_PATH  = src/
 HEAD_PATH  = include/
@@ -36,8 +34,8 @@ DEPS_PATH  = .dep/
 # Flags
 CFLAGS    += -Wall -Wextra -Werror
 CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH)
+LDFLAGS   += -L$(LIB_PATH)
 DEPSFLAGS  = -MMD -MF"$(DEPS_PATH)$(notdir $(@:.o=.d))"
-ARFLAGS    = rcsT
 
 # Files
 SRCS      := $(shell find src -type f)
@@ -57,21 +55,19 @@ DEB_DEPS   = $(DEPS:.d=_debug.d)
 
 # Link the main executable.
 $(NAME): CFLAGS += -O3
-$(NAME): LDFLAGS += -lft
+$(NAME): LDFLAGS += -lftprintf
 $(NAME): $(OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH)
-	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft.a $^
-	@echo -e "create $(NAME)\naddlib $(NAME)\nsave\nend" | $(AR) -M
+	$(CC) $^ $(LDFLAGS) -o $@
 
 # Link the debug executable.
-$(DEB_NAME): CFLAGS += -g3
-$(DEB_NAME): LDFLAGS += -lft_debug
-$(DEB_NAME): $(DEB_OBJS)
+debug: CFLAGS += -g3
+debug: LDFLAGS += -lftprintf_debug
+debug: $(DEB_OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH) debug
-	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft_debug.a $^
-	@echo -e "create $(DEB_NAME)\naddlib $(DEB_NAME)\nsave\nend" | $(AR) -M
+	$(CC) $^ $(LDFLAGS) -o $@
 
 # Compile the objects.
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
@@ -83,35 +79,23 @@ $(OBJS_PATH)%_debug.o: $(SRCS_PATH)%.c
 	@mkdir -p $(OBJS_PATH) $(DEPS_PATH)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEPSFLAGS) -c $< -o $@
 
-# Make debug
-debug: $(DEB_NAME)
-
-# Make tests
-test: $(NAME)
-	@make -C tests
-	@ln -sf tests/test test
-
 # Make all.
 all: $(NAME)
 
 # Remove the objects and dependencies files.
 clean:
 	$(RM) $(OBJS_PATH) $(DEPS_PATH)
-	@make -C tests clean
-	@make -C $(LIB_PATH) clean
 
 # Remove the object, dependencies and executables files.
 fclean:
 	$(RM) $(OBJS_PATH) $(DEPS_PATH)
-	$(RM) $(NAME) $(DEB_NAME) test
-	@make -C tests fclean
-	@make -C $(LIB_PATH) fclean
+	$(RM) $(NAME) $(DEB_NAME)
 
 # Clean and rebuild the executable.
 re: fclean all
 
 # Clean and rebuild the debug executable.
-redebug: fclean $(DEB_NAME)
+redebug: fclean debug
 
 # Include dependencies for objects.
 -include $(DEPS)

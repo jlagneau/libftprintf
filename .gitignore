@@ -1,4 +1,5 @@
 .obj/
 .dep/
-ft_printf
-debug
+libftprintf.a
+libftprintf_debug.a
+test
