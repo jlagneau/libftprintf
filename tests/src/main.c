@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 20:30:24 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 13:37:22 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/18 14:04:48 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		main(void)
 {
 	ft_printf("Hello World !\n");
 	ft_printf("Project done at 42%% !\n");
+	ft_printf("Print double percent %%%%\n");
 	ft_printf("Hello %s !\n", "World");
 	ft_printf("Hello %d World !\n", 42);
 	ft_printf("%d%d\n", 1, 23);
