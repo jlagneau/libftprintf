@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:41:58 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 13:40:21 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/18 14:19:27 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # ifdef FT_PRINTF_INTERNAL
 #  include <stdarg.h>
-#  define FORMAT_ARRAY_SIZE	7
+#  define FORMAT_ARRAY_SIZE	8
 #  define MAX_LENGTH		4096
 
 typedef						int (*format_func)(char*, char*, va_list);
