@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 20:30:24 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 14:20:42 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/18 14:25:32 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		main(void)
 	ft_printf("42o = %o\n", 42);
 	ft_printf("42h = %x\n", 42);
 	ft_printf("42H = %X\n", 42);
+	ft_printf("ASCII char 42 = %c\n", 42);
 	ft_printf("Hello %s %s%s !\n", "World", "foo", "bar");
 	ft_printf("Hello %d%s%b\n", 42, "foobar", 5);
 	return (0);
