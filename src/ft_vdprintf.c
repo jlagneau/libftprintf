@@ -6,21 +6,21 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 18:58:30 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/17 18:58:30 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/18 11:58:54 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include "ft_printf.h"
+#include <ft_printf.h>
 
 int		ft_vdprintf(int fd, const char *format, va_list ap)
 {
 	int		ret;
-	char	*str;
+	char	str[4096];
 
-	str = NULL;
+	ft_bzero(str, 4096);
 	ret = ft_vsprintf(str, format, ap);
 	ft_putstr_fd(str, fd);
-	ft_strdel(&str);
+	(void)fd;
 	return (ret);
 }

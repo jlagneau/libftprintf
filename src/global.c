@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf.c                                       :+:      :+:    :+:   */
+/*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/17 18:29:57 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/17 18:29:57 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/18 13:22:52 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <ft_printf.h>
 
-int		ft_dprintf(int fd, const char *format, ...)
-{
-	int			ret;
-	va_list		ap;
-
-	va_start(ap, format);
-	ret = ft_vdprintf(fd, format, ap);
-	va_end(ap);
-	return (ret);
-}
+t_format_functions g_format_functions_array[FORMAT_ARRAY_SIZE] = {
+	{'s', replace_format_string },
+	{'d', replace_format_integer },
+	{'b', replace_format_bin },
+	{'o', replace_format_oct },
+	{'x', replace_format_hex_lower },
+	{'X', replace_format_hex_upper },
+};

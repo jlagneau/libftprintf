@@ -34,7 +34,7 @@ OBJS_PATH  = .obj/
 DEPS_PATH  = .dep/
 
 # Flags
-CFLAGS    += -Wall -Wextra -Werror
+CFLAGS    += -Wall -Wextra -Werror -DFT_PRINTF_INTERNAL
 CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH)
 DEPSFLAGS  = -MMD -MF"$(DEPS_PATH)$(notdir $(@:.o=.d))"
 ARFLAGS    = rcsT

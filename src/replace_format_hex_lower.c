@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf.c                                       :+:      :+:    :+:   */
+/*   replace_format_hex_lower.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/17 18:29:57 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/17 18:29:57 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/18 10:30:34 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/18 13:03:57 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		ft_dprintf(int fd, const char *format, ...)
+int		replace_format_hex_lower(char *format, char *pos, va_list ap)
 {
-	int			ret;
-	va_list		ap;
+	int		ret;
+	char	*data;
 
-	va_start(ap, format);
-	ret = ft_vdprintf(fd, format, ap);
-	va_end(ap);
+	data = NULL;
+	if (!(data = ft_itoa_base(va_arg(ap, unsigned int), BASE_HEX_LOWER)))
+		return (-1);
+	ret = replace_format(format, data, pos, 2);
+	ft_strdel(&data);
 	return (ret);
 }

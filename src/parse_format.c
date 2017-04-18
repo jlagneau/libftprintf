@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf.c                                       :+:      :+:    :+:   */
+/*   parse_format.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/17 18:29:57 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/17 18:29:57 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/18 13:10:41 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/18 13:18:27 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <ft_printf.h>
 
-int		ft_dprintf(int fd, const char *format, ...)
+int		parse_format(char *str, char *pos, va_list ap)
 {
-	int			ret;
-	va_list		ap;
+	size_t	i;
+	int		ret;
 
-	va_start(ap, format);
-	ret = ft_vdprintf(fd, format, ap);
-	va_end(ap);
+	i = 0;
+	ret = 0;
+	while (i < FORMAT_ARRAY_SIZE)
+	{
+		if (*(pos + 1) == g_format_functions_array[i].flag)
+		{
+			ret = g_format_functions_array[i].func(str, pos, ap);
+			break ;
+		}
+		if (ret == -1)
+			return (ret);
+		i++;
+	}
 	return (ret);
 }
