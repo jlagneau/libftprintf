@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/08 10:47:14 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/04/18 20:44:31 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -89,7 +89,7 @@ clean:
 # Remove the object, dependencies and executables files.
 fclean:
 	$(RM) $(OBJS_PATH) $(DEPS_PATH)
-	$(RM) $(NAME) $(DEB_NAME)
+	$(RM) $(NAME) debug
 
 # Clean and rebuild the executable.
 re: fclean all
