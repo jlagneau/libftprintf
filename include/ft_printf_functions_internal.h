@@ -25,17 +25,17 @@ int		parse_complex_format(char *str, char *pos, va_list ap);
 
 int		replace_format(char *str, char *data, char *pos, size_t format_len);
 
-int		replace_format_percent(char *format, char *pos, va_list ap);
-int		replace_format_string(char *format, char *pos, va_list ap);
-int		replace_format_integer(char *format, char *pos, va_list ap);
-int		replace_format_bin(char *format, char *pos, va_list ap);
-int		replace_format_oct(char *format, char *pos, va_list ap);
-int		replace_format_hex_lower(char *format, char *pos, va_list ap);
-int		replace_format_hex_upper(char *format, char *pos, va_list ap);
-int		replace_format_char(char *format, char *pos, va_list ap);
-int		replace_format_ptr(char *format, char *pos, va_list ap);
-int		replace_format_unsigned(char *format, char *pos, va_list ap);
-int		replace_format_long(char *format, char *pos, va_list ap);
+int		replace_perc(char *format, char *pos, va_list ap);
+int		replace_str(char *format, char *pos, va_list ap);
+int		replace_int(char *format, char *pos, va_list ap);
+int		replace_bin(char *format, char *pos, va_list ap);
+int		replace_oct(char *format, char *pos, va_list ap);
+int		replace_hex_lower(char *format, char *pos, va_list ap);
+int		replace_hex_upper(char *format, char *pos, va_list ap);
+int		replace_char(char *format, char *pos, va_list ap);
+int		replace_ptr(char *format, char *pos, va_list ap);
+int		replace_uint(char *format, char *pos, va_list ap);
+int		replace_long(char *format, char *pos, va_list ap);
 
 # endif
 #endif

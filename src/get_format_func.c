@@ -15,18 +15,18 @@
 t_ffs	*get_format_func(void)
 {
 	static t_ffs format_func_array[] = {
-		{'%', replace_format_percent },
-		{'s', replace_format_string },
-		{'d', replace_format_integer },
-		{'D', replace_format_long },
-		{'i', replace_format_integer },
-		{'b', replace_format_bin },
-		{'o', replace_format_oct },
-		{'x', replace_format_hex_lower },
-		{'X', replace_format_hex_upper },
-		{'c', replace_format_char },
-		{'p', replace_format_ptr },
-		{'u', replace_format_unsigned },
+		{'%', replace_perc },
+		{'s', replace_str },
+		{'d', replace_int },
+		{'D', replace_long },
+		{'i', replace_int },
+		{'b', replace_bin },
+		{'o', replace_oct },
+		{'x', replace_hex_lower },
+		{'X', replace_hex_upper },
+		{'c', replace_char },
+		{'p', replace_ptr },
+		{'u', replace_uint },
 		{0, 0}
 	};
 	return (format_func_array);

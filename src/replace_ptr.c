@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_format_ptr.c                               :+:      :+:    :+:   */
+/*   replace_ptr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:28:27 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 12:10:38 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/19 12:53:50 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		replace_format_ptr(char *format, char *pos, va_list ap)
+int		replace_ptr(char *format, char *pos, va_list ap)
 {
 	int		ret;
 	char	*tmp;

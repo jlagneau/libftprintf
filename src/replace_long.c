@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_format_hex_upper.c                         :+:      :+:    :+:   */
+/*   replace_long.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/18 10:31:14 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 13:03:49 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/19 12:25:51 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/19 12:53:29 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		replace_format_hex_upper(char *format, char *pos, va_list ap)
+int		replace_long(char *format, char *pos, va_list ap)
 {
 	int		ret;
 	char	*data;
 
 	data = NULL;
-	if (!(data = ft_itoa_base(va_arg(ap, unsigned int), BASE_HEX_UPPER)))
+	if (!(data = ft_ltoa(va_arg(ap, long))))
 		return (-1);
 	ret = replace_format(format, data, pos, 2);
 	ft_strdel(&data);
