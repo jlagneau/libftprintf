@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global.c                                           :+:      :+:    :+:   */
+/*   replace_uint.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 14:28:03 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/19 10:44:29 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/19 13:11:37 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include <ft_printf.h>
 
-t_format_functions g_format_functions_array[FORMAT_ARRAY_SIZE] = {
-	{'%', replace_format_percent },
-	{'s', replace_format_string },
-	{'d', replace_format_integer },
-	{'i', replace_format_integer },
-	{'b', replace_format_bin },
-	{'o', replace_format_oct },
-	{'x', replace_format_hex_lower },
-	{'X', replace_format_hex_upper },
-	{'c', replace_format_char },
-};
+int		replace_uint(char *format, char *pos, va_list ap)
+{
+	int		ret;
+	char	*data;
+
+	data = NULL;
+	if (!(data = ft_uitoa(va_arg(ap, unsigned int))))
+		return (-1);
+	ret = replace_format(format, data, pos, 2);
+	ft_strdel(&data);
+	return (ret);
+}

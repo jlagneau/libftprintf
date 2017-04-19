@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vsprintf.c                                      :+:      :+:    :+:   */
+/*   replace_oct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/17 19:00:13 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 09:26:43 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/18 10:29:10 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/19 12:53:36 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		ft_vsprintf(char *str, const char *format, va_list ap)
+int		replace_oct(char *format, char *pos, va_list ap)
 {
 	int		ret;
-	char	*pos;
+	char	*data;
 
-	str = ft_strcpy(str, format);
-	pos = str;
-	ret = (int)ft_strlen(str);
-	ret = search_format(str, pos, ret, ap);
+	data = NULL;
+	if (!(data = ft_itoa_base(va_arg(ap, unsigned int), BASE_OCTAL)))
+		return (-1);
+	ret = replace_format(format, data, pos, 2);
+	ft_strdel(&data);
 	return (ret);
 }

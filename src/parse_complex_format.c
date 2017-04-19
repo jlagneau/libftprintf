@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vsprintf.c                                      :+:      :+:    :+:   */
+/*   parse_complex_format.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/17 19:00:13 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 09:26:43 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/19 10:14:04 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/19 10:14:56 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <ft_printf.h>
 
-int		ft_vsprintf(char *str, const char *format, va_list ap)
+int		parse_complex_format(char *str, char *pos, va_list ap)
 {
-	int		ret;
-	char	*pos;
-
-	str = ft_strcpy(str, format);
-	pos = str;
-	ret = (int)ft_strlen(str);
-	ret = search_format(str, pos, ret, ap);
-	return (ret);
+	(void)str;
+	(void)pos;
+	(void)ap;
+	return (-1);
 }

@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_format_hex_lower.c                         :+:      :+:    :+:   */
+/*   get_format_func.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/18 10:30:34 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 13:03:57 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/19 13:32:29 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <ft_printf.h>
 
-int		replace_format_hex_lower(char *format, char *pos, va_list ap)
+t_ffs	*get_format_func(void)
 {
-	int		ret;
-	char	*data;
-
-	data = NULL;
-	if (!(data = ft_itoa_base(va_arg(ap, unsigned int), BASE_HEX_LOWER)))
-		return (-1);
-	ret = replace_format(format, data, pos, 2);
-	ft_strdel(&data);
-	return (ret);
+	static t_ffs format_func_array[] = {
+		{'%', replace_perc },
+		{'c', replace_char },
+		{'s', replace_str },
+		{'d', replace_int },
+		{'i', replace_int },
+		{'u', replace_uint },
+		{'D', replace_long },
+		{'b', replace_bin },
+		{'o', replace_oct },
+		{'x', replace_hex_lower },
+		{'X', replace_hex_upper },
+		{'p', replace_ptr },
+		{0, 0}
+	};
+	return (format_func_array);
 }
