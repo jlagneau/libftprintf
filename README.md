@@ -21,9 +21,10 @@ To build and run the tests, use the command:
 ## Documentation
 
 Please read the [Makefile][1] to know what you can do with it.
-You can read the documentation of the project [here][2]. The purpose of this library
-is to make my own printf function that doesn't work with buffered IO streams but (because
-of the constraints of the authorized functions in the scope of the project).
+You can read the documentation of the project [here][2]. The purpose of this
+library is to make my own printf function that doesn't work with buffered IO
+streams (because of the constraints of the authorized functions in the scope
+of the project).
 
 ## License
 
