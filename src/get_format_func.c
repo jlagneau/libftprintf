@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 09:53:55 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/19 10:25:49 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_ffs	*get_format_func(void)
 		{'x', replace_format_hex_lower },
 		{'X', replace_format_hex_upper },
 		{'c', replace_format_char },
+		{'p', replace_format_ptr },
 		{0, 0}
 	};
 	return (format_func_array);
