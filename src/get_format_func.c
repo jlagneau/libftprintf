@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global.c                                           :+:      :+:    :+:   */
+/*   get_format_func.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 14:28:03 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/19 09:46:08 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-t_format_functions g_format_functions_array[FORMAT_ARRAY_SIZE] = {
-	{'%', replace_format_percent },
-	{'s', replace_format_string },
-	{'d', replace_format_integer },
-	{'i', replace_format_integer },
-	{'b', replace_format_bin },
-	{'o', replace_format_oct },
-	{'x', replace_format_hex_lower },
-	{'X', replace_format_hex_upper },
-	{'c', replace_format_char },
-};
+t_format_func	*get_format_func(void)
+{
+	static t_format_func format_func_array[] = {
+		{'%', replace_format_percent },
+		{'s', replace_format_string },
+		{'d', replace_format_integer },
+		{'i', replace_format_integer },
+		{'b', replace_format_bin },
+		{'o', replace_format_oct },
+		{'x', replace_format_hex_lower },
+		{'X', replace_format_hex_upper },
+		{'c', replace_format_char },
+		{0, 0}
+	};
+	return (format_func_array);
+}
