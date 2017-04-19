@@ -6,10 +6,11 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:34:52 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 14:02:20 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/19 10:06:15 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include <ft_printf.h>
 
 int		replace_format_percent(char *format, char *pos, va_list ap)
