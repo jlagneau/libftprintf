@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 10:44:09 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/19 12:22:38 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_ffs	*get_format_func(void)
 		{'%', replace_format_percent },
 		{'s', replace_format_string },
 		{'d', replace_format_integer },
+		{'D', replace_format_long },
 		{'i', replace_format_integer },
 		{'b', replace_format_bin },
 		{'o', replace_format_oct },
