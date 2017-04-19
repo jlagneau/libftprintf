@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:10:41 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 09:44:10 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/19 09:54:18 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		parse_format(char *str, char *pos, va_list ap)
 {
-	size_t			i;
-	int				ret;
-	t_format_func	*ffp;
+	size_t	i;
+	int		ret;
+	t_ffs	*ffp;
 
 	i = 0;
 	ret = 0;
