@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_format_func.c                                  :+:      :+:    :+:   */
+/*   parse_field_width.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 13:32:29 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/20 12:38:41 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/20 18:09:32 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include <ft_printf.h>
 
-t_ffs	*get_format_func(void)
+void	parse_field_width(char *pos, t_flags *flags, va_list ap)
 {
-	static t_ffs format_func_array[] = {
-		{'%', replace_perc },
-		{'c', replace_char },
-		{'s', replace_str },
-		{'d', replace_int },
-		{'i', replace_int },
-		{'u', replace_uint },
-		{'D', replace_long },
-		{'b', replace_bin },
-		{'o', replace_oct },
-		{'x', replace_hex_lower },
-		{'X', replace_hex_upper },
-		{'p', replace_ptr },
-		{0, 0}
-	};
-	return (format_func_array);
+	if (ft_isdigit(*(pos + flags->flag_length)))
+	{
+		flags->field_width = (size_t)ft_atoi(pos + flags->flag_length);
+		flags->flag_length += ft_nbrlen((long)flags->field_width);
+	}
+	else if (*(pos + flags->flag_length) == '*')
+	{
+		flags->field_width = (size_t)va_arg(ap, int);
+		flags->flag_length += 1;
+	}
 }

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_char.c                                     :+:      :+:    :+:   */
+/*   prepend_zeroes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/18 14:22:09 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/21 16:46:59 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/21 14:16:35 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/21 15:29:00 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		replace_char(char *format, char *pos, t_flags flags, va_list ap)
+char		*prepend_zeroes(char *str, size_t len)
 {
-	int		ret;
-	char	data[2];
-	char	*formated_data;
+	char	*tmp;
+	char	*data;
 
-	ft_bzero(data, 2);
-	data[0] = (char)va_arg(ap, int);
-	formated_data = format_data(data, "", flags);
-	ret = replace_format(format, formated_data, pos, flags);
-	ft_strdel(&formated_data);
-	return (ret);
+	tmp = NULL;
+	data = NULL;
+	if (!(tmp = ft_strnew(len)))
+		ft_puterr_and_exit(__FILE__);
+	tmp = ft_memset(tmp, '0', len);
+	if (!(data = ft_strjoin(tmp, str)))
+		ft_puterr_and_exit(__FILE__);
+	ft_strdel(&tmp);
+	return (data);
 }

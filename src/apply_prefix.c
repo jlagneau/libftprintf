@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_char.c                                     :+:      :+:    :+:   */
+/*   apply_prefix.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/18 14:22:09 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/21 16:46:59 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/22 10:06:37 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/22 10:07:18 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		replace_char(char *format, char *pos, t_flags flags, va_list ap)
+char		*apply_prefix(char *str, char *prefix, t_flags flags)
 {
-	int		ret;
-	char	data[2];
-	char	*formated_data;
+	char	*tmp;
+	size_t	len;
 
-	ft_bzero(data, 2);
-	data[0] = (char)va_arg(ap, int);
-	formated_data = format_data(data, "", flags);
-	ret = replace_format(format, formated_data, pos, flags);
-	ft_strdel(&formated_data);
-	return (ret);
+	tmp = NULL;
+	len = ft_strlen(str);
+	if (flags.flag_char & FC_SHARP && flags.conv_spec & CS_SPECIAL && len > 0)
+		tmp = ft_strjoin(prefix, str);
+	else
+		tmp = ft_strdup(str);
+	if (!tmp)
+		ft_puterr_and_exit(__FILE__);
+	return (tmp);
 }

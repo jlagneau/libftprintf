@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_char.c                                     :+:      :+:    :+:   */
+/*   apply_precision.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/18 14:22:09 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/21 16:46:59 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/22 10:03:45 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/22 10:05:30 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		replace_char(char *format, char *pos, t_flags flags, va_list ap)
+char		*apply_precision(char *str, t_flags flags)
 {
-	int		ret;
-	char	data[2];
-	char	*formated_data;
+	char	*tmp;
 
-	ft_bzero(data, 2);
-	data[0] = (char)va_arg(ap, int);
-	formated_data = format_data(data, "", flags);
-	ret = replace_format(format, formated_data, pos, flags);
-	ft_strdel(&formated_data);
-	return (ret);
+	tmp = NULL;
+	if (flags.precision >= 0)
+		tmp = precision(str, flags);
+	else
+	{
+		if (!(tmp = ft_strdup(str)))
+			ft_puterr_and_exit(__FILE__);
+	}
+	return (tmp);
 }
