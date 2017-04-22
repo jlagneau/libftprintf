@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/22 16:22:20 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/04/22 16:27:22 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -71,6 +71,7 @@ ifeq ($(UNAME_S),Linux)
 	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft.a $^
 	@echo -e "create $(NAME)\naddlib $(NAME)\nsave\nend" | $(AR) -M
 endif
+	ranlib $@
 
 # Link the debug executable.
 $(DEB_NAME): CFLAGS += -g3
@@ -85,6 +86,7 @@ ifeq ($(UNAME_S),Linux)
 	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft_debug.a $^
 	@echo -e "create $(DEB_NAME)\naddlib $(DEB_NAME)\nsave\nend" | $(AR) -M
 endif
+	ranlib $@
 
 # Compile the objects.
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
