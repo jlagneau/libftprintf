@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/08 10:47:14 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/04/22 16:22:20 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -48,6 +48,9 @@ DEPS       = $(addprefix $(DEPS_PATH), $(notdir $(SRCS:.c=.d)))
 DEB_OBJS   = $(OBJS:.o=_debug.o)
 DEB_DEPS   = $(DEPS:.d=_debug.d)
 
+# Detect OS
+UNAME_S   := $(shell uname -s)
+
 #
 # Rules
 #
@@ -61,8 +64,13 @@ $(NAME): LDFLAGS += -lft
 $(NAME): $(OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH)
+ifeq ($(UNAME_S),Darwin)
+	libtool -static -o $(NAME) $(LIB_PATH)libft.a $^
+endif
+ifeq ($(UNAME_S),Linux)
 	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft.a $^
 	@echo -e "create $(NAME)\naddlib $(NAME)\nsave\nend" | $(AR) -M
+endif
 
 # Link the debug executable.
 $(DEB_NAME): CFLAGS += -g3
@@ -70,8 +78,13 @@ $(DEB_NAME): LDFLAGS += -lft_debug
 $(DEB_NAME): $(DEB_OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH) debug
+ifeq ($(UNAME_S),Darwin)
+	libtool -static -o $@ $(LIB_PATH)libft_debug.a $^
+endif
+ifeq ($(UNAME_S),Linux)
 	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft_debug.a $^
 	@echo -e "create $(DEB_NAME)\naddlib $(DEB_NAME)\nsave\nend" | $(AR) -M
+endif
 
 # Compile the objects.
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
