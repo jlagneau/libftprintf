@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/18 20:44:31 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/04/22 11:22:57 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -34,7 +34,7 @@ DEPS_PATH  = .dep/
 # Flags
 CFLAGS    += -Wall -Wextra -Werror
 CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH)
-LDFLAGS   += -L$(LIB_PATH)
+LDFLAGS   += -Wl,-export-dynamic -L$(LIB_PATH)
 DEPSFLAGS  = -MMD -MF"$(DEPS_PATH)$(notdir $(@:.o=.d))"
 
 # Files
