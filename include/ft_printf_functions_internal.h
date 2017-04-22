@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:00:38 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/22 13:59:57 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/22 15:09:23 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		replace_str(char *format, char *pos, t_flags flags, va_list ap);
 int		replace_int(char *format, char *pos, t_flags flags, va_list ap);
 int		replace_uint(char *format, char *pos, t_flags flags, va_list ap);
 int		replace_long(char *format, char *pos, t_flags flags, va_list ap);
+int		replace_ulong(char *format, char *pos, t_flags flags, va_list ap);
 int		replace_bin(char *format, char *pos, t_flags flags, va_list ap);
 int		replace_oct(char *format, char *pos, t_flags flags, va_list ap);
 int		replace_hex_lower(char *format, char *pos, t_flags flags, va_list ap);

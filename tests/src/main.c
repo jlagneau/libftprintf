@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 20:30:24 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/22 14:02:25 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/22 15:04:33 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int		main(void)
 	ft_printf("Hello %10.5d%s%b\n", 42, "foobar", 5);
 	ft_printf("[%*.*s]\n", 10, 2, "Yolo");
 	ft_printf("Print 0 with 0 precision: %.0d\n", 0);
+	ft_printf("%x\n", -42);
 	return (0);
 }
