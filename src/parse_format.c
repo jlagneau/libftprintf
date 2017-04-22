@@ -6,35 +6,37 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:10:41 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 10:12:30 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/21 09:48:33 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		parse_format(char *str, char *pos, va_list ap)
+int		parse_format(char *str, char *pos, t_flags *flags, va_list ap)
 {
 	size_t	i;
 	int		ret;
-	t_ffs	*ffp;
+	t_cs	*cs;
 	t_bool	matched;
 
 	i = 0;
 	ret = 0;
 	matched = FALSE;
-	ffp = get_format_func();
-	while (ffp[i].flag)
+	parse_flag_char(pos, flags);
+	parse_field_width(pos, flags, ap);
+	parse_precision(pos, flags, ap);
+	cs = get_conv_specs();
+	while (cs[i].conv_spec && matched == FALSE)
 	{
-		if (*(pos + 1) == ffp[i].flag)
+		if (*(pos + flags->flag_length) == cs[i].conv_spec)
 		{
 			matched = TRUE;
-			ret = ffp[i].func(str, pos, ap);
-			break ;
+			flags->conv_spec = cs[i].conv_flag;
+			flags->flag_length += 1;
+			ret = cs[i].func(str, pos, *flags, ap);
 		}
 		i++;
 	}
-	if (matched == FALSE)
-		ret = parse_complex_format(str, pos, ap);
 	return (ret);
 }
