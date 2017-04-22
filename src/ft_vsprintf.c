@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 19:00:13 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 09:26:43 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/22 14:06:40 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 
 int		ft_vsprintf(char *str, const char *format, va_list ap)
 {
-	int		ret;
 	char	*pos;
 
 	str = ft_strcpy(str, format);
 	pos = str;
-	ret = (int)ft_strlen(str);
-	ret = search_format(str, pos, ret, ap);
-	return (ret);
+	return (search_format(str, pos, ap));
 }
