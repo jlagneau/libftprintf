@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:44:34 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/20 10:32:57 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/22 14:42:40 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_fc	*get_flag_character(void)
 {
-	static t_fc flag_char_array[] = {
+	static t_fc		flag_char_array[] = {
 		{'#', FC_SHARP },
 		{'0', FC_ZERO },
 		{'-', FC_MINUS },
