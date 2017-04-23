@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/22 16:27:22 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/04/23 03:16:08 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -64,12 +64,11 @@ $(NAME): LDFLAGS += -lft
 $(NAME): $(OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH)
-ifeq ($(UNAME_S),Darwin)
-	libtool -static -o $(NAME) $(LIB_PATH)libft.a $^
-endif
 ifeq ($(UNAME_S),Linux)
 	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft.a $^
 	@echo -e "create $(NAME)\naddlib $(NAME)\nsave\nend" | $(AR) -M
+else
+	libtool -static -o $(NAME) $(LIB_PATH)libft.a $^
 endif
 	ranlib $@
 
@@ -79,12 +78,11 @@ $(DEB_NAME): LDFLAGS += -lft_debug
 $(DEB_NAME): $(DEB_OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH) debug
-ifeq ($(UNAME_S),Darwin)
-	libtool -static -o $@ $(LIB_PATH)libft_debug.a $^
-endif
 ifeq ($(UNAME_S),Linux)
 	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft_debug.a $^
 	@echo -e "create $(DEB_NAME)\naddlib $(DEB_NAME)\nsave\nend" | $(AR) -M
+else
+	libtool -static -o $@ $(LIB_PATH)libft_debug.a $^
 endif
 	ranlib $@
 
