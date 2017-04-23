@@ -102,7 +102,7 @@ debug: $(DEB_NAME)
 # Make tests
 test: $(NAME)
 	@make -C tests
-	@ln -sf tests/test test
+	@ln -sf tests/test.sh test
 
 # Make all.
 all: $(NAME)
