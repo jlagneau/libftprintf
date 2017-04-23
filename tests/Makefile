@@ -32,9 +32,9 @@ OBJS_PATH  = .obj/
 DEPS_PATH  = .dep/
 
 # Flags
-CFLAGS    += -Wall -Wextra -Werror
-CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH)
-LDFLAGS   += -Wl,-export-dynamic -L$(LIB_PATH)
+CFLAGS    += 
+CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH) -I$(LIB_PATH)libft/include
+LDFLAGS   += -L$(LIB_PATH)
 DEPSFLAGS  = -MMD -MF"$(DEPS_PATH)$(notdir $(@:.o=.d))"
 
 # Files
