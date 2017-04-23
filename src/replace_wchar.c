@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/23 03:23:51 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 04:09:27 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 13:53:44 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int			replace_wchar(char *format, char *pos, t_flags flags, va_list ap)
 
 	tmp = va_arg(ap, wchar_t*);
 	flags.visual_len = ft_wstrwlen(tmp);
+	flags.data = tmp;
 	data = get_data(tmp, flags);
 	formated_data = format_data(data, "", &flags);
 	ft_strdel(&data);

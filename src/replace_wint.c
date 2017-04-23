@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/23 11:00:00 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 11:08:21 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 13:58:45 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 
 int			replace_wint(char *format, char *pos, t_flags flags, va_list ap)
 {
-	wint_t	tmp;
+	wchar_t	tmp[2];
 	char	*data;
 	int		ret;
 	char	*formated_data;
 
-	tmp = va_arg(ap, wint_t);
+	tmp[0] = (wchar_t)va_arg(ap, wint_t);
+	tmp[1] = 0;
 	flags.visual_len = 1;
-	data = ft_winttostr(tmp);
+	flags.data = &tmp;
+	data = ft_wchartostr(tmp);
 	formated_data = format_data(data, "", &flags);
 	ret = replace_format(format, formated_data, pos, flags);
 	ft_strdel(&formated_data);

@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:41:58 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 03:21:08 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 13:53:09 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct				s_flags
 	unsigned int			length_mod;
 	unsigned int			conv_spec;
 	size_t					visual_len;
+	void					*data;
 }							t_flags;
 
 typedef						int (*t_format_fun)(char*, char*, t_flags, va_list);

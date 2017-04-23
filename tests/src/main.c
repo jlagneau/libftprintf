@@ -36,7 +36,7 @@ int		main(void)
 	ft_printf("Hello %10.5d%s%b\n", 42, "foobar", 5);
 	ft_printf("[%*.*s]\n", 10, 2, "Yolo");
 	ft_printf("Print 0 with 0 precision: (%.0d)\n", 0);
-	ft_printf("[%10S]\n", L"éàêëâäôîï");
+	ft_printf("[%10.4S]\n", L"éàêëâäôîï");
 	ft_printf("[%S] - [%S] - [%S]\n", L"中文", L"العَرَبِيَّة‎‎", L"ру́сский язы́к");
 	ft_printf("[%C][%C]\n", L'中', L'文');
 	return (0);
