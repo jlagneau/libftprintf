@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:42:21 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/21 17:50:09 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 04:05:51 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int			replace_str(char *format, char *pos, t_flags flags, va_list ap)
 
 	tmp = va_arg(ap, char*);
 	data = get_data(tmp, flags);
-	formated_data = format_data(data, "", flags);
+	flags.visual_len = ft_strlen(data);
+	formated_data = format_data(data, "", &flags);
 	ft_strdel(&data);
 	ret = replace_format(format, formated_data, pos, flags);
 	ft_strdel(&formated_data);

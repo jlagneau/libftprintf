@@ -12,5 +12,9 @@
 
 #ifndef TEST_H
 # define TEST_H
+# include <stdlib.h>
+
+void	custom(void);
+void	origin(void);
 
 #endif

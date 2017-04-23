@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   apply_precision.c                                  :+:      :+:    :+:   */
+/*   replace_ulong.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/22 10:03:45 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 04:09:12 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/22 15:08:42 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/23 04:08:32 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-char		*apply_precision(char *str, t_flags *flags)
+int		replace_ulong(char *format, char *pos, t_flags flags, va_list ap)
 {
-	char	*tmp;
+	int		ret;
+	char	*data;
+	char	*formated_data;
 
-	tmp = NULL;
-	if (flags->precision >= 0)
-		tmp = precision(str, flags);
-	else
-	{
-		if (!(tmp = ft_strdup(str)))
-			ft_puterr_and_exit(__FILE__);
-	}
-	return (tmp);
+	data = NULL;
+	if (!(data = ft_ultoa(va_arg(ap, unsigned long))))
+		return (-1);
+	flags.visual_len = ft_strlen(data);
+	formated_data = format_data(data, "", &flags);
+	ft_strdel(&data);
+	ret = replace_format(format, formated_data, pos, flags);
+	ft_strdel(&formated_data);
+	return (ret);
 }

@@ -6,14 +6,14 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 15:50:37 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/22 10:10:54 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 04:05:25 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-char		*format_data(char *str, char *prefix, t_flags flags)
+char		*format_data(char *str, char *prefix, t_flags *flags)
 {
 	char	*precision;
 	char	*zero_padded;

@@ -1,29 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_hex_lower.c                                :+:      :+:    :+:   */
+/*   replace_wchar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/18 10:30:34 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 04:06:39 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/23 03:23:51 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/23 15:54:04 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-int		replace_hex_lower(char *format, char *pos, t_flags flags, va_list ap)
+static char	*get_data(wchar_t *tmp, t_flags flags)
 {
-	int		ret;
 	char	*data;
-	char	*formated_data;
 
 	data = NULL;
-	if (!(data = ft_ltoa_base(va_arg(ap, unsigned long), BASE_HEX_LOWER)))
-		return (-1);
-	flags.visual_len = ft_strlen(data);
-	formated_data = format_data(data, "0x", &flags);
+	if (tmp == NULL)
+	{
+		if (flags.precision == -1 || flags.precision > 5)
+			data = ft_strdup("(null)");
+		else
+			data = ft_strdup("");
+	}
+	else
+		data = ft_wchartostr(tmp);
+	if (!data)
+		ft_puterr_and_exit(__FILE__);
+	return (data);
+}
+
+int			replace_wchar(char *format, char *pos, t_flags flags, va_list ap)
+{
+	wchar_t	*tmp;
+	char	*data;
+	int		ret;
+	char	*formated_data;
+
+	tmp = va_arg(ap, wchar_t*);
+	flags.visual_len = ft_wstrwlen(tmp);
+	data = get_data(tmp, flags);
+	formated_data = format_data(data, "", &flags);
 	ft_strdel(&data);
 	ret = replace_format(format, formated_data, pos, flags);
 	ft_strdel(&formated_data);

@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 10:11:06 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/22 10:11:58 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 10:49:43 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char		*get_padding_spaces(size_t size)
 	return (tmp);
 }
 
-char			*apply_padding(char *str, t_flags flags)
+char			*apply_padding(char *str, t_flags *flags)
 {
 	char		*ret;
 	char		*pad;
@@ -32,12 +32,13 @@ char			*apply_padding(char *str, t_flags flags)
 
 	pad = NULL;
 	ret = NULL;
-	len = (flags.field_width > ft_strlen(str))
-		? flags.field_width - ft_strlen(str) : 0;
+	len = (flags->field_width > flags->visual_len)
+		? flags->field_width - flags->visual_len : 0;
 	if (len > 0)
 	{
+		flags->visual_len += len;
 		pad = get_padding_spaces(len);
-		if (flags.flag_char & FC_MINUS)
+		if (flags->flag_char & FC_MINUS)
 			ret = ft_strjoin(str, pad);
 		else
 			ret = ft_strjoin(pad, str);

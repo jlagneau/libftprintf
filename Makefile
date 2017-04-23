@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/08 10:47:14 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/04/23 11:39:45 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -34,8 +34,8 @@ OBJS_PATH  = .obj/
 DEPS_PATH  = .dep/
 
 # Flags
-CFLAGS    += -Wall -Wextra -Werror -DFT_PRINTF_INTERNAL
-CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH)
+CFLAGS    += -Wall -Wextra -Werror
+CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH) -DFT_PRINTF_INTERNAL
 DEPSFLAGS  = -MMD -MF"$(DEPS_PATH)$(notdir $(@:.o=.d))"
 ARFLAGS    = rcsT
 
@@ -47,6 +47,9 @@ DEPS       = $(addprefix $(DEPS_PATH), $(notdir $(SRCS:.c=.d)))
 
 DEB_OBJS   = $(OBJS:.o=_debug.o)
 DEB_DEPS   = $(DEPS:.d=_debug.d)
+
+# Detect OS
+UNAME_S   := $(shell uname -s)
 
 #
 # Rules
@@ -61,8 +64,13 @@ $(NAME): LDFLAGS += -lft
 $(NAME): $(OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH)
+ifeq ($(UNAME_S),Linux)
 	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft.a $^
 	@echo -e "create $(NAME)\naddlib $(NAME)\nsave\nend" | $(AR) -M
+else
+	libtool -static -o $(NAME) $(LIB_PATH)libft.a $^
+endif
+	ranlib $@
 
 # Link the debug executable.
 $(DEB_NAME): CFLAGS += -g3
@@ -70,8 +78,13 @@ $(DEB_NAME): LDFLAGS += -lft_debug
 $(DEB_NAME): $(DEB_OBJS)
 	@-git submodule update --init --recursive
 	@make -C $(LIB_PATH) debug
+ifeq ($(UNAME_S),Linux)
 	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft_debug.a $^
 	@echo -e "create $(DEB_NAME)\naddlib $(DEB_NAME)\nsave\nend" | $(AR) -M
+else
+	libtool -static -o $@ $(LIB_PATH)libft_debug.a $^
+endif
+	ranlib $@
 
 # Compile the objects.
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
@@ -89,7 +102,7 @@ debug: $(DEB_NAME)
 # Make tests
 test: $(NAME)
 	@make -C tests
-	@ln -sf tests/test test
+	@ln -sf tests/test.sh test
 
 # Make all.
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 18:58:30 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/18 11:58:54 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/22 14:22:04 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 int		ft_vdprintf(int fd, const char *format, va_list ap)
 {
 	int		ret;
-	char	str[4096];
+	char	str[FT_PRINTF_MAX_LEN];
 
-	ft_bzero(str, 4096);
+	ft_bzero(str, FT_PRINTF_MAX_LEN);
+	if (ft_strlen(format) > FT_PRINTF_MAX_LEN - 1)
+	{
+		ft_putstr_fd(format, fd);
+		return (-1);
+	}
 	ret = ft_vsprintf(str, format, ap);
 	ft_putstr_fd(str, fd);
-	(void)fd;
 	return (ret);
 }
