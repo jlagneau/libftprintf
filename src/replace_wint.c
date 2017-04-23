@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   apply_precision.c                                  :+:      :+:    :+:   */
+/*   replace_wint.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/22 10:03:45 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 04:09:12 by jlagneau         ###   ########.fr       */
+/*   Created: 2017/04/23 11:00:00 by jlagneau          #+#    #+#             */
+/*   Updated: 2017/04/23 11:08:21 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-char		*apply_precision(char *str, t_flags *flags)
+int			replace_wint(char *format, char *pos, t_flags flags, va_list ap)
 {
-	char	*tmp;
+	wint_t	tmp;
+	char	*data;
+	int		ret;
+	char	*formated_data;
 
-	tmp = NULL;
-	if (flags->precision >= 0)
-		tmp = precision(str, flags);
-	else
-	{
-		if (!(tmp = ft_strdup(str)))
-			ft_puterr_and_exit(__FILE__);
-	}
-	return (tmp);
+	tmp = va_arg(ap, wint_t);
+	flags.visual_len = 1;
+	data = ft_winttostr(tmp);
+	formated_data = format_data(data, "", &flags);
+	ret = replace_format(format, formated_data, pos, flags);
+	ft_strdel(&formated_data);
+	return (ret);
 }

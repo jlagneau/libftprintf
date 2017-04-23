@@ -6,22 +6,25 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 10:06:37 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/22 10:07:18 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 04:03:31 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-char		*apply_prefix(char *str, char *prefix, t_flags flags)
+char		*apply_prefix(char *str, char *prefix, t_flags *flags)
 {
 	char	*tmp;
 	size_t	len;
 
 	tmp = NULL;
 	len = ft_strlen(str);
-	if (flags.flag_char & FC_SHARP && flags.conv_spec & CS_SPECIAL && len > 0)
+	if (flags->flag_char & FC_SHARP && flags->conv_spec & CS_SPECIAL && len > 0)
+	{
 		tmp = ft_strjoin(prefix, str);
+		flags->visual_len += ft_strlen(str);
+	}
 	else
 		tmp = ft_strdup(str);
 	if (!tmp)

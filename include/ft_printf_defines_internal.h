@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:41:58 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/22 14:15:36 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 03:21:08 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 #  define CS_UNUMERIC		0x02
 #  define CS_SPECIAL		0x04
 #  define CS_CHAR			0x08
+#  define CS_WCHAR			0x10
 
 typedef struct				s_fc
 {
@@ -65,6 +66,7 @@ typedef struct				s_flags
 	ssize_t					precision;
 	unsigned int			length_mod;
 	unsigned int			conv_spec;
+	size_t					visual_len;
 }							t_flags;
 
 typedef						int (*t_format_fun)(char*, char*, t_flags, va_list);

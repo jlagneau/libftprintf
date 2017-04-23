@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 10:29:10 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/22 15:02:11 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 04:06:11 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		replace_oct(char *format, char *pos, t_flags flags, va_list ap)
 	data = NULL;
 	if (!(data = ft_ltoa_base(va_arg(ap, unsigned long), BASE_OCTAL)))
 		return (-1);
-	formated_data = format_data(data, "0", flags);
+	flags.visual_len = ft_strlen(data);
+	formated_data = format_data(data, "0", &flags);
 	ft_strdel(&data);
 	ret = replace_format(format, formated_data, pos, flags);
 	ft_strdel(&formated_data);

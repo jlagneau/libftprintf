@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 12:25:51 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/21 16:51:48 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 04:06:20 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		replace_long(char *format, char *pos, t_flags flags, va_list ap)
 	data = NULL;
 	if (!(data = ft_ltoa(va_arg(ap, long))))
 		return (-1);
-	formated_data = format_data(data, "", flags);
+	flags.visual_len = ft_strlen(data);
+	formated_data = format_data(data, "", &flags);
 	ft_strdel(&data);
 	ret = replace_format(format, formated_data, pos, flags);
 	ft_strdel(&formated_data);

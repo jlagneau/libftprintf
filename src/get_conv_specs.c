@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/22 15:08:25 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/23 10:59:00 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ t_cs	*get_conv_specs(void)
 	static t_cs		conv_specs_array[] = {
 		{'%', replace_perc, 0 },
 		{'c', replace_char, CS_CHAR },
+		{'C', replace_wint, CS_CHAR | CS_WCHAR },
 		{'s', replace_str, CS_CHAR },
+		{'S', replace_wchar, CS_CHAR | CS_WCHAR },
 		{'d', replace_int, CS_NUMERIC },
 		{'i', replace_int, CS_NUMERIC },
 		{'u', replace_uint, CS_NUMERIC | CS_UNUMERIC },
