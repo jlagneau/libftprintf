@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 18:24:10 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/19 10:05:05 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/26 15:10:56 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 # include <stdarg.h>
 
 # ifdef FT_PRINTF_INTERNAL
-#  include <ft_printf_functions_internal.h>
+#  include "internal/defines.h"
+#  include "internal/data_struct.h"
+#  include "internal/functions.h"
 # endif
 
 int		ft_printf(char const *format, ...);

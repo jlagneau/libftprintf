@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_functions_internal.h                     :+:      :+:    :+:   */
+/*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:00:38 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 11:04:12 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/26 15:08:31 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_FUNCTIONS_INTERNAL_H
-# define FT_PRINTF_FUNCTIONS_INTERNAL_H
-# ifdef FT_PRINTF_INTERNAL
+#ifndef FUNCTIONS_H
+# define FUNCTIONS_H
 # include <stdarg.h>
 # include <stddef.h>
-# include <ft_printf_defines_internal.h>
 
 t_cs	*get_conv_specs(void);
 t_fc	*get_flag_character(void);
@@ -53,5 +51,4 @@ int		replace_hex_lower(char *format, char *pos, t_flags flags, va_list ap);
 int		replace_hex_upper(char *format, char *pos, t_flags flags, va_list ap);
 int		replace_ptr(char *format, char *pos, t_flags flags, va_list ap);
 
-# endif
 #endif
