@@ -2,6 +2,8 @@
 
 :package: Static library for ft_printf family functions
 
+[![Build Status][1]][2]
+
 ---
 
 ## Installation
@@ -10,13 +12,13 @@ There's no automatic install. Copy the file manually if you need to.
 
 to compile, use the command:
 
-    make
+	make
 
 ## Tests
 
 To build and run the tests, use the command:
 
-    make test && ./test
+	make test && ./test
 
 ## Documentation
 
@@ -28,8 +30,11 @@ constraints of the authorized functions in the scope of the project).
 
 ## License
 
-MIT
+[MIT][6]
 
-[1]:https://github.com/jlagneau/libftprintf/blob/master/Makefile
-[2]:https://github.com/jlagneau/libftprintf/blob/master/doc/norme.en.pdf
-[3]:https://github.com/jlagneau/libftprintf/blob/master/doc/ft_printf.en.pdf
+[1]:https://travis-ci.org/jlagneau/libftprintf.svg?branch=master
+[2]:https://travis-ci.org/jlagneau/libftprintf
+[3]:https://github.com/jlagneau/libftprintf/blob/master/Makefile
+[4]:https://github.com/jlagneau/libftprintf/blob/master/doc/norme.en.pdf
+[5]:https://github.com/jlagneau/libftprintf/blob/master/doc/ft_printf.en.pdf
+[6]:https://github.com/jlagneau/libftprintf/blob/master/LICENSE
