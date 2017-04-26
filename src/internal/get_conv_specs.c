@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:42:36 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 10:59:00 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/26 22:08:46 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cs	*get_conv_specs(void)
 		{'O', replace_oct, CS_NUMERIC | CS_UNUMERIC | CS_SPECIAL },
 		{'x', replace_hex_lower, CS_NUMERIC | CS_UNUMERIC | CS_SPECIAL },
 		{'X', replace_hex_upper, CS_NUMERIC | CS_UNUMERIC | CS_SPECIAL },
-		{'p', replace_ptr, 0 },
+		{'p', replace_ptr, CS_NUMERIC | CS_UNUMERIC | CS_SPECIAL },
 		{0, 0, 0}
 	};
 
