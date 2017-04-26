@@ -1,4 +1,3 @@
-.obj/
-.dep/
+build
 test
-debug
+test_debug
