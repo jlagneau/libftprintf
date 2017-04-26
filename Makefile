@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/23 11:39:45 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/04/26 14:49:33 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -24,32 +24,67 @@ AR         = ar
 RM         = rm -rf
 
 # Directories
-LIB_PATH   = libft/
-LIBH_PATH  = libft/include/
+LIBFT_PATH = libft
 
-SRCS_PATH  = src/
-HEAD_PATH  = include/
+SRCS_PATH  = src
+OBJS_PATH  = build/obj
+DEPS_PATH  = build/dep
 
-OBJS_PATH  = .obj/
-DEPS_PATH  = .dep/
+HEADERS    = include $(LIBFT_PATH)/include
 
 # Flags
 CFLAGS    += -Wall -Wextra -Werror
-CPPFLAGS  += -I$(HEAD_PATH) -I$(LIBH_PATH) -DFT_PRINTF_INTERNAL
-DEPSFLAGS  = -MMD -MF"$(DEPS_PATH)$(notdir $(@:.o=.d))"
+CPPFLAGS  += $(addprefix -I, $(HEADERS)) -DFT_PRINTF_INTERNAL
+DEPSFLAGS  = -MMD -MF"$(subst $(OBJS_PATH),$(DEPS_PATH),$(@:.o=.d))"
 ARFLAGS    = rcsT
 
 # Files
 SRCS      := $(shell find src -type f)
+SRCS_SUB  := $(subst $(SRCS_PATH),, $(shell find src -mindepth 1 -type d))
 
-OBJS       = $(addprefix $(OBJS_PATH), $(notdir $(SRCS:.c=.o)))
-DEPS       = $(addprefix $(DEPS_PATH), $(notdir $(SRCS:.c=.d)))
+OBJS      := $(subst $(SRCS_PATH), $(OBJS_PATH), $(SRCS:.c=.o))
+DEPS      := $(subst $(SRCS_PATH), $(DEPS_PATH), $(SRCS:.c=.d))
 
 DEB_OBJS   = $(OBJS:.o=_debug.o)
 DEB_DEPS   = $(DEPS:.d=_debug.d)
 
 # Detect OS
 UNAME_S   := $(shell uname -s)
+
+#
+# Macro
+#
+
+define CREATE_BUILD_DIR
+@mkdir -p $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(SRCS_SUB))
+@mkdir -p $(DEPS_PATH) $(addprefix $(DEPS_PATH), $(SRCS_SUB))
+endef
+
+define COMPILE
+$(CREATE_BUILD_DIR)
+$(CC) $(CFLAGS) $(CPPFLAGS) $(DEPSFLAGS) -c $< -o $@
+endef
+
+define MAKELIB
+@-git submodule update --init --recursive
+@make -C $(LIBFT_PATH) $(1)
+endef
+
+define MAKETEST
+@make -C tests $(1)
+endef
+
+ifeq ($(UNAME_S),Linux)
+define LINK
+$(AR) $(ARFLAGS) $@ $(LIBFT_PATH)/libft$(1).a $^
+@echo -e "create $(NAME)\naddlib $(NAME)\nsave\nend" | $(AR) -M
+ranlib $@
+endef
+else
+define LINK
+libtool -static -o $(NAME) $(LIBFT_PATH)/libft$(1).a $^
+endef
+endif
 
 #
 # Rules
@@ -60,65 +95,49 @@ UNAME_S   := $(shell uname -s)
 
 # Link the main executable.
 $(NAME): CFLAGS += -O3
-$(NAME): LDFLAGS += -lft
 $(NAME): $(OBJS)
-	@-git submodule update --init --recursive
-	@make -C $(LIB_PATH)
-ifeq ($(UNAME_S),Linux)
-	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft.a $^
-	@echo -e "create $(NAME)\naddlib $(NAME)\nsave\nend" | $(AR) -M
-else
-	libtool -static -o $(NAME) $(LIB_PATH)libft.a $^
-endif
-	ranlib $@
+	$(MAKELIB)
+	$(LINK)
 
 # Link the debug executable.
 $(DEB_NAME): CFLAGS += -g3
-$(DEB_NAME): LDFLAGS += -lft_debug
 $(DEB_NAME): $(DEB_OBJS)
-	@-git submodule update --init --recursive
-	@make -C $(LIB_PATH) debug
-ifeq ($(UNAME_S),Linux)
-	$(AR) $(ARFLAGS) $@ $(LIB_PATH)libft_debug.a $^
-	@echo -e "create $(DEB_NAME)\naddlib $(DEB_NAME)\nsave\nend" | $(AR) -M
-else
-	libtool -static -o $@ $(LIB_PATH)libft_debug.a $^
-endif
-	ranlib $@
+	$(call MAKELIB, debug)
+	$(call LINK, _debug)
 
 # Compile the objects.
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
-	@mkdir -p $(OBJS_PATH) $(DEPS_PATH)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEPSFLAGS) -c $< -o $@
+	$(COMPILE)
 
 # Compile the debug objects.
 $(OBJS_PATH)%_debug.o: $(SRCS_PATH)%.c
-	@mkdir -p $(OBJS_PATH) $(DEPS_PATH)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEPSFLAGS) -c $< -o $@
+	$(COMPILE)
 
 # Make debug
 debug: $(DEB_NAME)
 
 # Make tests
 test: $(NAME)
-	@make -C tests
+	$(MAKETEST)
 	@ln -sf tests/test.sh test
+
+# Clean and rebuild tests
+retest: fclean test
 
 # Make all.
 all: $(NAME)
 
 # Remove the objects and dependencies files.
 clean:
-	$(RM) $(OBJS_PATH) $(DEPS_PATH)
-	@make -C tests clean
-	@make -C $(LIB_PATH) clean
+	$(call MAKETEST, clean)
+	$(call MAKELIB, clean)
+	$(RM) build
 
 # Remove the object, dependencies and executables files.
 fclean:
-	$(RM) $(OBJS_PATH) $(DEPS_PATH)
-	$(RM) $(NAME) $(DEB_NAME) test
-	@make -C tests fclean
-	@make -C $(LIB_PATH) fclean
+	$(call MAKETEST, fclean)
+	$(call MAKELIB, fclean)
+	$(RM) build $(NAME) $(DEB_NAME) test
 
 # Clean and rebuild the executable.
 re: fclean all
