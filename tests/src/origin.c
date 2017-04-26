@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 20:30:24 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 04:12:54 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/26 21:43:51 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	origin(void)
 	printf("42H = %#X\n", 42);
 	printf("ASCII char 42 = %c\n", 42);
 	printf("%c%c%c%c%c\n", 'H', 'e', 'l', 'l', 'o');
-	printf("%p - %p\n", "Hello World", (void*)0);
+	printf("%p - %p\n", (void*)-1, (void*)0);
 	printf("%u %u\n", (unsigned int)2147483648, (unsigned int)-1);
 	printf("Hello %s %s%s !\n", "World", "foo", "bar");
 	printf("Hello %10.5d%s\n", 42, "foobar");
