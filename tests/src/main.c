@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 20:30:24 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/23 04:12:54 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/26 21:54:08 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int		main(int argc, char *argv[])
 	{
 		print_usage();
 		return (1);
-	}	
+	}
 	return (0);
 }
