@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 15:06:01 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/26 15:10:32 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/27 13:29:35 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ typedef struct				s_fc
 	char					flag_char;
 	unsigned int			value;
 }							t_fc;
+
+typedef struct				s_lm
+{
+	char					*length_mod;
+	size_t					length_mod_len;
+	unsigned int			length_flag;
+}							t_lm;
 
 typedef struct				s_flags
 {

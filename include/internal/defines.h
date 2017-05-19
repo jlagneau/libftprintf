@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 09:41:58 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/26 15:07:05 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/27 13:21:05 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@
 **  32 | 16 |  8 |  4 |  2 |  1
 **   z |  j | ll |  l | hh |  h
 */
-# define LM_H				0x01
-# define LM_HH				0x02
-# define LM_L				0x04
-# define LM_LL				0x08
+# define LM_HH				0x01
+# define LM_H				0x02
+# define LM_LL				0x04
+# define LM_L				0x08
 # define LM_J				0x10
 # define LM_Z				0x20
 

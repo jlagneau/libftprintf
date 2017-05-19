@@ -102,8 +102,8 @@ $(NAME): $(OBJS)
 # Link the debug executable.
 $(DEB_NAME): CFLAGS += -g3
 $(DEB_NAME): $(DEB_OBJS)
-	$(call MAKELIB, debug)
-	$(call LINK, _debug)
+	$(call MAKELIB,debug)
+	$(call LINK,_debug)
 
 # Compile the objects.
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
