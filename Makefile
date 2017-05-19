@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/26 14:49:33 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/05/20 01:36:37 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -24,13 +24,17 @@ AR         = ar
 RM         = rm -rf
 
 # Directories
-LIBFT_PATH = libft
-
 SRCS_PATH  = src
-OBJS_PATH  = build/obj
-DEPS_PATH  = build/dep
+HEAD_PATH  = include
 
-HEADERS    = include $(LIBFT_PATH)/include
+BUILD_PATH = build
+OBJS_PATH  = $(BUILD_PATH)/obj
+DEPS_PATH  = $(BUILD_PATH)/dep
+
+LIBFT_PATH = libft
+LIBFT_HEAD = $(LIBFT_PATH)/include
+
+HEADERS   := $(LIBFT_HEAD) $(shell find $(HEAD_PATH) -type d)
 
 # Flags
 CFLAGS    += -Wall -Wextra -Werror
@@ -55,23 +59,16 @@ UNAME_S   := $(shell uname -s)
 # Macro
 #
 
-define CREATE_BUILD_DIR
-@mkdir -p $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(SRCS_SUB))
-@mkdir -p $(DEPS_PATH) $(addprefix $(DEPS_PATH), $(SRCS_SUB))
-endef
-
 define COMPILE
-$(CREATE_BUILD_DIR)
 $(CC) $(CFLAGS) $(CPPFLAGS) $(DEPSFLAGS) -c $< -o $@
 endef
 
 define MAKELIB
-@-git submodule update --init --recursive
-@make -C $(LIBFT_PATH) $(1)
+@$(MAKE) -C $(LIBFT_PATH) $(1)
 endef
 
 define MAKETEST
-@make -C tests $(1)
+@$(MAKE) -C tests $(1)
 endef
 
 ifeq ($(UNAME_S),Linux)
@@ -91,18 +88,16 @@ endif
 #
 
 # Phony.
-.PHONY: all clean fclean norme re redebug
+.PHONY: all build_library build_library_debug clean fclean re redebug
 
 # Link the main executable.
 $(NAME): CFLAGS += -O3
 $(NAME): $(OBJS)
-	$(MAKELIB)
 	$(LINK)
 
 # Link the debug executable.
 $(DEB_NAME): CFLAGS += -g3
 $(DEB_NAME): $(DEB_OBJS)
-	$(call MAKELIB,debug)
 	$(call LINK,_debug)
 
 # Compile the objects.
@@ -112,6 +107,26 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 # Compile the debug objects.
 $(OBJS_PATH)%_debug.o: $(SRCS_PATH)%.c
 	$(COMPILE)
+
+# Create build directories and build library
+$(OBJS): | $(OBJS_PATH) $(DEPS_PATH) library
+$(DEB_OBJS): | $(OBJS_PATH) $(DEPS_PATH) library_debug
+
+# Create build object directory
+$(OBJS_PATH):
+	mkdir -p $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(SRCS_SUB))
+
+# Create build dependencies directory
+$(DEPS_PATH):
+	mkdir -p $(DEPS_PATH) $(addprefix $(DEPS_PATH), $(SRCS_SUB))
+
+# Build library
+library:
+	$(MAKELIB)
+
+# Build debug library
+library_debug:
+	$(call MAKELIB, debug)
 
 # Make debug
 debug: $(DEB_NAME)
@@ -131,19 +146,21 @@ all: $(NAME)
 clean:
 	$(call MAKETEST, clean)
 	$(call MAKELIB, clean)
-	$(RM) build
+	$(RM) $(BUILD_PATH)
 
 # Remove the object, dependencies and executables files.
 fclean:
 	$(call MAKETEST, fclean)
 	$(call MAKELIB, fclean)
-	$(RM) build $(NAME) $(DEB_NAME) test
+	$(RM) $(BUILD_PATH) $(NAME) $(DEB_NAME) test
 
 # Clean and rebuild the executable.
-re: fclean all
+re: | fclean
+	@$(MAKE) all
 
 # Clean and rebuild the debug executable.
-redebug: fclean $(DEB_NAME)
+redebug: | fclean
+	@$(MAKE) debug
 
 # Include dependencies for objects.
 -include $(DEPS)
