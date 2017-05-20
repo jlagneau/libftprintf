@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/05/20 01:36:37 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/05/20 11:58:27 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -132,12 +132,9 @@ library_debug:
 debug: $(DEB_NAME)
 
 # Make tests
-test: $(NAME)
+test: | $(NAME)
 	$(MAKETEST)
 	@ln -sf tests/test.sh test
-
-# Clean and rebuild tests
-retest: fclean test
 
 # Make all.
 all: $(NAME)
@@ -161,6 +158,10 @@ re: | fclean
 # Clean and rebuild the debug executable.
 redebug: | fclean
 	@$(MAKE) debug
+
+# Clean and rebuild tests
+retest: | fclean
+	@$(MAKE) test
 
 # Include dependencies for objects.
 -include $(DEPS)
