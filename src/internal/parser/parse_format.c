@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:10:41 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/21 09:48:33 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/27 13:34:36 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		parse_format(char *str, char *pos, t_flags *flags, va_list ap)
 	parse_flag_char(pos, flags);
 	parse_field_width(pos, flags, ap);
 	parse_precision(pos, flags, ap);
+	parse_length_mod(pos, flags);
 	cs = get_conv_specs();
 	while (cs[i].conv_spec && matched == FALSE)
 	{

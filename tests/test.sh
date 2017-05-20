@@ -1,8 +1,8 @@
-#!/bin/zsh
+#!/bin/bash
 
-printf "\033[34mTEST\033[0m\n";
+printf "\033[33mTEST\033[0m\n";
 
-diff =(./tests/test origin) =(./tests/test custom)
+diff <(./tests/test origin) <(./tests/test custom)
 
 errors=$?
 

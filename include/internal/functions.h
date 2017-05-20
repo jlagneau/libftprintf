@@ -6,7 +6,7 @@
 /*   By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:00:38 by jlagneau          #+#    #+#             */
-/*   Updated: 2017/04/26 15:08:31 by jlagneau         ###   ########.fr       */
+/*   Updated: 2017/04/27 13:39:43 by jlagneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 t_cs	*get_conv_specs(void);
 t_fc	*get_flag_character(void);
+t_lm	*get_length_mod(void);
 
 int		search_format(char *str, char *pos, va_list ap);
 int		parse_format(char *str, char *pos, t_flags *flags, va_list ap);
@@ -24,6 +25,7 @@ int		parse_format(char *str, char *pos, t_flags *flags, va_list ap);
 void	parse_flag_char(char *pos, t_flags *flags);
 void	parse_field_width(char *pos, t_flags *flags, va_list ap);
 void	parse_precision(char *pos, t_flags *flags, va_list ap);
+void	parse_length_mod(char *pos, t_flags *flags);
 
 char	*precision(char *str, t_flags *flags);
 char	*prepend_zeroes(char *str, size_t len);
