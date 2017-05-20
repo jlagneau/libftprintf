@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/05/20 01:36:37 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/05/20 12:08:17 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -88,7 +88,7 @@ endif
 #
 
 # Phony.
-.PHONY: all build_library build_library_debug clean fclean re redebug
+.PHONY: all clean fclean libft libft_debug re redebug retest
 
 # Link the main executable.
 $(NAME): CFLAGS += -O3
@@ -109,8 +109,8 @@ $(OBJS_PATH)%_debug.o: $(SRCS_PATH)%.c
 	$(COMPILE)
 
 # Create build directories and build library
-$(OBJS): | $(OBJS_PATH) $(DEPS_PATH) library
-$(DEB_OBJS): | $(OBJS_PATH) $(DEPS_PATH) library_debug
+$(OBJS): | $(OBJS_PATH) $(DEPS_PATH) libft
+$(DEB_OBJS): | $(OBJS_PATH) $(DEPS_PATH) libft_debug
 
 # Create build object directory
 $(OBJS_PATH):
@@ -121,23 +121,20 @@ $(DEPS_PATH):
 	mkdir -p $(DEPS_PATH) $(addprefix $(DEPS_PATH), $(SRCS_SUB))
 
 # Build library
-library:
+libft:
 	$(MAKELIB)
 
 # Build debug library
-library_debug:
+libft_debug:
 	$(call MAKELIB, debug)
 
 # Make debug
 debug: $(DEB_NAME)
 
 # Make tests
-test: $(NAME)
+test: | $(NAME)
 	$(MAKETEST)
 	@ln -sf tests/test.sh test
-
-# Clean and rebuild tests
-retest: fclean test
 
 # Make all.
 all: $(NAME)
@@ -161,6 +158,10 @@ re: | fclean
 # Clean and rebuild the debug executable.
 redebug: | fclean
 	@$(MAKE) debug
+
+# Clean and rebuild tests
+retest: | fclean
+	@$(MAKE) test
 
 # Include dependencies for objects.
 -include $(DEPS)

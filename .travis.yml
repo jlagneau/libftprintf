@@ -8,7 +8,7 @@ compiler:
   - gcc
 
 before_script:
-  - make test
+  - make -j test
 
 script:
   - ./test

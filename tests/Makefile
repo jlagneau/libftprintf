@@ -6,7 +6,7 @@
 #    By: jlagneau <jlagneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 08:29:58 by jlagneau          #+#    #+#              #
-#    Updated: 2017/04/26 21:54:25 by jlagneau         ###   ########.fr        #
+#    Updated: 2017/05/20 11:59:34 by jlagneau         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -23,13 +23,20 @@ CC        ?= gcc
 RM         = rm -rf
 
 # Directories
-LIBPF_PATH = ..
-
 SRCS_PATH  = src
-OBJS_PATH  = build/obj
-DEPS_PATH  = build/dep
+HEAD_PATH  = include
 
-HEADERS    = include ../include ../libft/include
+BUILD_PATH = build
+OBJS_PATH  = $(BUILD_PATH)/obj
+DEPS_PATH  = $(BUILD_PATH)/dep
+
+LIBFT_PATH = ../libft
+LIBFT_HEAD = $(LIBFT_PATH)/include
+
+LIBPF_PATH = ..
+LIBPF_HEAD = $(LIBPF_PATH)/include
+
+HEADERS   := $(LIBFT_HEAD) $(LIBPF_HEAD) $(shell find $(HEAD_PATH) -type d)
 
 # Flags
 CFLAGS    += -Wall -Wextra -Werror -Wno-format
@@ -51,13 +58,7 @@ DEB_DEPS   = $(DEPS:.d=_debug.d)
 # Macro
 #
 
-define CREATE_BUILD_DIR
-@mkdir -p $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(SRCS_SUB))
-@mkdir -p $(DEPS_PATH) $(addprefix $(DEPS_PATH), $(SRCS_SUB))
-endef
-
 define COMPILE
-$(CREATE_BUILD_DIR)
 $(CC) $(CFLAGS) $(CPPFLAGS) $(DEPSFLAGS) -c $< -o $@
 endef
 
@@ -92,6 +93,18 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 $(OBJS_PATH)%_debug.o: $(SRCS_PATH)%.c
 	$(COMPILE)
 
+# Create build directories
+$(OBJS): | $(OBJS_PATH) $(DEPS_PATH)
+$(DEB_OBJS): | $(OBJS_PATH) $(DEPS_PATH)
+
+# Create build object directory
+$(OBJS_PATH):
+	mkdir -p $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(SRCS_SUB))
+
+# Create build dependencies directory
+$(DEPS_PATH):
+	mkdir -p $(DEPS_PATH) $(addprefix $(DEPS_PATH), $(SRCS_SUB))
+
 # Make all.
 all: $(NAME)
 
@@ -107,10 +120,12 @@ fclean:
 	$(RM) build $(NAME) $(DEB_NAME)
 
 # Clean and rebuild the executable.
-re: fclean all
+re: | fclean
+	@$(MAKE) all
 
 # Clean and rebuild the debug executable.
-redebug: fclean debug
+redebug: | fclean
+	@$(MAKE) debug
 
 # Include dependencies for objects.
 -include $(DEPS)
